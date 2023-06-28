@@ -7,7 +7,7 @@
 
 
 body {
-  /* Get rid of margins and paddings */
+  /* Get rid of any default margins and paddings */
   margin: 0; 
   padding: 0;
 }
@@ -20,6 +20,37 @@ body {
   background-color: #202123;
   height: 100vh;
   width: 244px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+button {
+  border: solid 0.5px rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;  
+}
+
+nav {
+  border-top: solid 0.5px rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  margin: 10px;  
+}
+
+.history {
+  padding: 10px;
+  margin: 10px;  
+  height: 100%;
+
+}
+
+.history li {
+  list-style-type: none;
+  padding: 15px 0;
+  cursor: pointer;
+
 }
 
 .main {
