@@ -1,6 +1,6 @@
 //Here we sets up an Express.js server,
 //configure it to parse JSON data, enable CORS, and listen on port 8000.
-
+require("dotenv").config();
 const PORT = 8000;
 const express = require("express");
 const cors = require("cors");
@@ -12,7 +12,7 @@ app.post("/completions", async (req, res) => {
   const options = {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${API_KEY}`,
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -31,5 +31,4 @@ app.post("/completions", async (req, res) => {
   }
 });
 
-const API_KEY = "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";
 app.listen(PORT, () => console.log("Your server is running on PORT " + PORT));
