@@ -12,6 +12,12 @@ const App = () => {
     setCurrentTitle(null) // sets unique titles everytime we click "new title"
   }
 
+  const handleClick = (uniqueTitle) => {
+    setCurrentTitle(uniqueTitle)
+    setMessage(null)
+    setValue("")
+  }
+
   const getMessages = async () => {
     const options = {
       method: "POST",
@@ -66,13 +72,19 @@ const App = () => {
   }, [message, currentTitle]);
 
   console.log(previousChats);
+  //look at each previous chat in my array, look at the title, and if it equals the current title we are currently on, we know we are on the currenChat.
+  const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle)
+  //get the previous chats and map, get the individual previous chat and get the title. Pass all of this in a new set. (get unique items from an object)
+  const uniqueTitles =  Array.from(new Set(previousChats.map(previousChat => previousChat.title))) // so we can map them on into the history
+  console.log(uniqueTitles)
+   
 
   return (
     <div className="app">
       <section className="side-bar">
         <button onClick={createNewChat}>+ New Chat</button>
         <ul className="history">
-          <li>Ejemplo</li>
+         {uniqueTitles?.map((uniqueTitle, index)=> <li key={index} onClick={()=> handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
         <nav>
           <p>Made by Mich</p>
@@ -80,7 +92,18 @@ const App = () => {
       </section>
       <section className="main">
         {!currentTitle && <h1>MichGPT</h1>}
-        <ul className="feed"></ul>
+        <ul className="feed">
+        {/* //Get current chat in the feed */}
+        {/* checks if the current chat exists before mapping. Then maps into a list Item */}
+          {currentChat?.map((chatMessage, index) => 
+          <li key={index}>
+          {/* //shows who sent the message */}
+            <p className="role">{chatMessage.role}</p> 
+            {/* //shows the content */}
+            <p>{chatMessage.content}</p>
+          </li>
+          )}
+        </ul>
         <div className="bottom-section">
           <div className="input-container">
             {/* //Displays the value. On change, pass through the event, I'm gonna set value to whatever e.target value is on that input */}
