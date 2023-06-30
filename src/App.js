@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ScrollableFeed from 'react-scrollable-feed'
 
 const App = () => {
   const [value, setValue] = useState(null);
@@ -92,10 +93,11 @@ const App = () => {
       </section>
       <section className="main">
         {!currentTitle && <h1>MichGPT</h1>}
+        <ScrollableFeed>
         <ul className="feed">
         {/* //Get current chat in the feed */}
         {/* checks if the current chat exists before mapping. Then maps into a list Item */}
-          {currentChat?.map((chatMessage, index) => 
+         {currentChat?.map((chatMessage, index) => 
           <li key={index}>
           {/* //shows who sent the message */}
             <p className="role">{chatMessage.role}</p> 
@@ -104,6 +106,7 @@ const App = () => {
           </li>
           )}
         </ul>
+          </ScrollableFeed>
         <div className="bottom-section">
           <div className="input-container">
             {/* //Displays the value. On change, pass through the event, I'm gonna set value to whatever e.target value is on that input */}
